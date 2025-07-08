@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { motion } from 'framer-motion';
+import emailjs from 'emailjs-com';
 import 'react-toastify/dist/ReactToastify.css';
-import { FaUser, FaEnvelope, FaComment } from 'react-icons/fa';
 
 function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
@@ -13,17 +13,33 @@ function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    toast.success('Message sent successfully! 🎉', {
-      position: 'top-center',
-      autoClose: 3000,
-    });
-    setForm({ name: '', email: '', message: '' });
+
+    const serviceID = 'service_031dewm';
+    const templateID = 'template_08fs4km';
+    const userID = 'LT6UwFsvbWMskaTIU';
+
+    emailjs
+      .send(serviceID, templateID, form, userID)
+      .then(() => {
+        toast.success('Message sent successfully! 🎉', {
+          position: 'top-center',
+          autoClose: 3000,
+        });
+        setForm({ name: '', email: '', message: '' });
+      })
+      .catch((err) => {
+        toast.error('Failed to send message 😢', {
+          position: 'top-center',
+          autoClose: 3000,
+        });
+        console.error('EmailJS Error:', err);
+      });
   };
 
   return (
     <main
       id="contact"
-      className="relative px-6 py-16 min-h-screen text-black dark:text-white"
+      className="relative px-6 py-20 min-h-screen text-black dark:text-white flex items-center justify-center"
       style={{
         backgroundImage: 'url("/src/assets/subodh.jpg")',
         backgroundSize: 'cover',
@@ -31,69 +47,79 @@ function Contact() {
         backgroundRepeat: 'no-repeat',
       }}
     >
-      {/* Overlay to darken/blurr the background for readability */}
-      <div className="absolute inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-sm z-0"></div>
+      {/* Subtle dark overlay */}
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm z-0" />
 
       <motion.div
-        className="relative z-10 max-w-2xl mx-auto"
-        initial={{ opacity: 0, scale: 0.95, y: 40 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: 'easeOut' }}
+        className="relative z-10 w-full max-w-2xl"
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
       >
-        <h2 className="text-4xl font-bold mb-8 text-center">Get in Touch</h2>
+        <h2 className="text-4xl font-bold text-center mb-8 text-white drop-shadow-lg">
+          Get in Touch
+        </h2>
 
         <form
           onSubmit={handleSubmit}
-          className="space-y-5 bg-white/30 dark:bg-white/10 backdrop-blur-md p-8 rounded-2xl shadow-2xl"
+          className="space-y-6 bg-white/20 dark:bg-white/10 backdrop-blur-xl p-10 rounded-3xl border border-white/30 shadow-2xl"
         >
           {/* Name Field */}
-          <div className="flex items-center border rounded px-3 py-2 bg-gray-50 dark:bg-gray-700 focus-within:ring-2 focus-within:ring-indigo-500 transition">
-            <FaUser className="text-indigo-400 mr-2" />
+          <div className="relative group">
             <input
               type="text"
               name="name"
-              placeholder="Your Name"
               value={form.name}
               onChange={handleChange}
-              className="w-full bg-transparent outline-none text-black dark:text-white"
               required
+              placeholder="Your Name"
+              className="peer w-full bg-transparent border border-gray-300 dark:border-gray-600 rounded-xl px-4 pt-6 pb-2 text-sm text-white placeholder-transparent focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
             />
+            <label className="absolute left-4 top-2 text-xs text-gray-300 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
+              Your Name
+            </label>
           </div>
 
           {/* Email Field */}
-          <div className="flex items-center border rounded px-3 py-2 bg-gray-50 dark:bg-gray-700 focus-within:ring-2 focus-within:ring-indigo-500 transition">
-            <FaEnvelope className="text-indigo-400 mr-2" />
+          <div className="relative group">
             <input
               type="email"
               name="email"
-              placeholder="Your Email"
               value={form.email}
               onChange={handleChange}
-              className="w-full bg-transparent outline-none text-black dark:text-white"
               required
+              placeholder="Your Email"
+              className="peer w-full bg-transparent border border-gray-300 dark:border-gray-600 rounded-xl px-4 pt-6 pb-2 text-sm text-white placeholder-transparent focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
             />
+            <label className="absolute left-4 top-2 text-xs text-gray-300 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
+              Your Email
+            </label>
           </div>
 
           {/* Message Field */}
-          <div className="flex items-start border rounded px-3 py-2 bg-gray-50 dark:bg-gray-700 focus-within:ring-2 focus-within:ring-indigo-500 transition">
-            <FaComment className="text-indigo-400 mr-2 mt-1" />
+          <div className="relative group">
             <textarea
               name="message"
-              placeholder="Your Message"
               value={form.message}
               onChange={handleChange}
-              className="w-full bg-transparent outline-none text-black dark:text-white h-32 resize-none"
               required
+              placeholder="Your Message"
+              className="peer w-full bg-transparent border border-gray-300 dark:border-gray-600 rounded-xl px-4 pt-6 pb-2 text-sm text-white placeholder-transparent focus:outline-none focus:ring-2 focus:ring-indigo-400 transition h-32 resize-none"
             />
+            <label className="absolute left-4 top-2 text-xs text-gray-300 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
+              Your Message
+            </label>
           </div>
 
           {/* Submit Button */}
-          <button
+          <motion.button
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
             type="submit"
-            className="w-full bg-indigo-600 hover:bg-indigo-700 active:scale-95 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-400 text-white font-semibold py-3 px-6 rounded-xl transition duration-200"
+            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition duration-300"
           >
             Send Message
-          </button>
+          </motion.button>
         </form>
       </motion.div>
       <ToastContainer />

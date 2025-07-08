@@ -7,7 +7,7 @@ function Header() {
   const location = useLocation();
 
   return (
-    <header className="p-4 shadow-md dark:shadow-white dark:bg-purple-900 bg-white sticky top-0 z-50">
+   <header className="p-4 shadow-md dark:shadow-white bg-gradient-to-tr from-blue-900 via-blue-700 to-blue-500 sticky top-0 z-50">
       <div className="max-w-6xl mx-auto flex justify-between items-center">
         <h1 className="text-xl font-bold">
           <Link to="/" className="hover:underline">Subodh's Portfolio</Link>

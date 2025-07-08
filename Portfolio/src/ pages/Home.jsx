@@ -16,7 +16,7 @@ const projects = [
     image: projectImg,
     tech: ['React', 'Tailwind CSS', 'Framer Motion'],
     liveLink: 'https://your-portfolio-demo.com',
-    codeLink: 'https://github.com/rsubodh80',
+    codeLink: 'https://github.com/rsubodh80/React/tree/main/TodocontextLoacl',
   },
   {
     title: 'Todo App',
@@ -24,7 +24,7 @@ const projects = [
     image: projectImg,
     tech: ['React', 'LocalStorage'],
     liveLink: 'https://todo-app-demo.com',
-    codeLink: 'https://github.com/rsubodh80',
+    codeLink: 'https://github.com/rsubodh80/React/tree/main/ThemeSwitcher',
   },
 ];
 
@@ -72,7 +72,7 @@ export default function Home() {
     <>
       <Hero />
 
-      <div className="space-y-20">
+      <div className="space-y-10">
         {/* Hero Text */}
         <motion.section
           className="text-center py-16"
@@ -87,17 +87,30 @@ export default function Home() {
         </motion.section>
 
         {/* About */}
-        <motion.section
-          className="max-w-3xl mx-auto px-4"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          variants={fadeInUp}
-          transition={{ duration: 0.8, delay: 1.0 }}
-        >
-          <h2 className="text-2xl font-semibold mb-4">About Me</h2>
-          <p>I’m passionate about building beautiful, responsive, and accessible web apps.</p>
-        </motion.section>
+      {/* About */}
+<motion.section
+  className="max-w-3xl mx-auto px-4"
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true, amount: 0.5 }}
+  variants={fadeInUp}
+  transition={{ duration: 0.8, delay: 1.0 }}
+>
+  <h2 className="text-2xl font-semibold mb-4">About Me</h2>
+  <p className="mb-6">I’m passionate about building beautiful, responsive, and accessible web apps.</p>
+
+  {/* ✅ Resume View Button (opens in new tab) */}
+  <a
+    href="/Subodh_Resume.pdf"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-block bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
+  >
+    View Resume
+  </a>
+</motion.section>
+
+
 
         {/* Skills */}
         <motion.section
